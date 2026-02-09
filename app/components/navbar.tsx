@@ -8,14 +8,14 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Home", href: "/dashboard" },
-    // { name: "About", href: "/about" },
+    { name: "Forums", href: "/forum" },
     // { name: "Services", href: "/services" },
     // { name: "Contact", href: "/contact" },
   ];
 
   return (
     <nav className="flex items-center justify-between px-8 py-4 bg-white shadow-md sticky top-0 z-50">
-      <div className="text-xl font-bold text-blue-600">MyLogo</div>
+      {/* <div className="text-xl font-bold text-blue-600">MyLogo</div> */}
       
       <div className="flex gap-6">
         {navLinks.map((link) => {
