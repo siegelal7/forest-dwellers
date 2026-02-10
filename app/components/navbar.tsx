@@ -9,7 +9,7 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", href: "/dashboard" },
     { name: "Forums", href: "/forum" },
-    // { name: "Services", href: "/services" },
+    { name: "Logout", href: "/logout" },
     // { name: "Contact", href: "/contact" },
   ];
 
@@ -33,6 +33,7 @@ const Navbar = () => {
             </Link>
           );
         })}
+        
       </div>
     </nav>
   );

@@ -6,15 +6,6 @@ export default async function Forum() {
   const session = await auth();
 
   if (!session) redirect("/login");
-  const userId = session?.user?.id;
-
-//   async function handleSubmit(formData){
-//     'use server'
-//     const body = formData.get("email");
-//     const commenter = userId;
-
-//     Post.c
-//   }
 
   return (
   <div style={{background:'white'}}>
