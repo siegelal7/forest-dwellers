@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-  ],
+, "app/components/navbarWrapper.js", "app/components/logout.js"  ],
   "exclude": ["node_modules"]
 }

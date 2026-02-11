@@ -1,12 +1,22 @@
-// proxy.js (at your root or src/)
+// proxy.js
 import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 
-// The function should be named proxy or be the default export
-const { auth } = NextAuth(authConfig);
-export default auth; 
+// Standard Auth.js v5 proxy export
+export const { auth: proxy } = NextAuth(authConfig);
 
 export const config = {
-  // Same matcher as before
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  callbacks: {
+    authorized({ auth, nextUrl }) {
+      const isLoggedIn = !!auth?.user;
+      const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
+
+      if (isOnDashboard && !isLoggedIn) {
+        // This is what triggers the redirect to /login
+        return false; 
+      }
+      return true;
+    },
+  },
 };

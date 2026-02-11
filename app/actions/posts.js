@@ -20,13 +20,14 @@ export async function createPost(formData) {
   const title = formData.get("title");
   const content = formData.get("content");
 
-  // 3. Create Post in MongoDB
-  await Post.create({
-    title,
-    content,
-    author: session.user.id, // The ID we set up in auth.js
-  });
-
   // 4. Refresh the page to show the new post
-  revalidatePath("/forum");
+ try {
+    await Post.create({ title, content, author: session.user.id});
+    
+    revalidatePath('/dashboard'); 
+    
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
 }

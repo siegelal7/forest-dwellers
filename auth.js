@@ -24,11 +24,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: "jwt" }, // Required for credentials
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.id = user.id;
+      if (user) {
+        token.sub = user.id;
+      }
+
+      await dbConnect();
+      const userExists = await User.findById(token.sub).lean();
+
+      if (!userExists) {
+        return null; // Invalidates the JWT token
+      }
+
       return token;
     },
     async session({ session, token }) {
-      if (session.user) session.user.id = token.id;
+      // If the jwt callback above returned null, token will be undefined/null here
+      if (!token?.sub) return null;
+
+      session.user.id = token.sub;
       return session;
     },
   },

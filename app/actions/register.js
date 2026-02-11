@@ -8,6 +8,7 @@ import { signIn } from "@/auth"; // Import signIn from your root auth.js
 export async function registerUser(formData) {
   const email = formData.get("email");
   const password = formData.get("password");
+  const name = formData.get("name");
 
   try {
     await dbConnect();
@@ -22,7 +23,8 @@ export async function registerUser(formData) {
     const hashedPassword = await bcrypt.hash(password, 10);
     await User.create({ 
       email, 
-      password: hashedPassword 
+      password: hashedPassword,
+      name
     });
 
     console.log("New user created, attempting auto-login...");
